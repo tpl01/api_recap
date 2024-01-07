@@ -32,9 +32,22 @@ public class C03_HamcrestMatchers_Post {
                 "  \"status\": \"available\"\n" +
                 "}";
         // 3. Send the request and get the response
-        given().when().body(payLoad).contentType(ContentType.JSON).post(url);
+        given().when().body(payLoad).contentType(ContentType.JSON).post(url)
 
         // 4. Do assertion
+        .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .body("id", equalTo(9898))
+                .body("category.id", equalTo(0))
+                .body("category.name", equalTo("Köpek"))
+                .body("name", equalTo("Pamuk"))
+                .body("photoUrls[0]", equalTo("string"))
+                .body("tags[0].id", equalTo(0))
+                .body("tags[0].name", equalTo("Sibirya Kurdu"))
+                .body("status", equalTo("available"))
+                .log().all()
+        ;
 
     }
 }
